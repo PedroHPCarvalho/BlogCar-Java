@@ -13,6 +13,14 @@ public record Id(UUID value) {
         return new Id(UUID.randomUUID());
     }
 
+    public static Id fromString(String string){
+        try {
+            return new Id(UUID.fromString(string));
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public String toString() {
         return value.toString();

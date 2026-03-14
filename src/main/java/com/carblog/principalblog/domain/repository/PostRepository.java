@@ -5,11 +5,12 @@ import com.carblog.principalblog.domain.valueobject.Id;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface PostRepository {
 
     Post save(Post post);
-    Optional<Post> findById (Id id);
+    Optional<Post> findById (UUID id);
     List<Post> findAll();
-    void delete(Id id);
+    void delete(UUID id);
 }

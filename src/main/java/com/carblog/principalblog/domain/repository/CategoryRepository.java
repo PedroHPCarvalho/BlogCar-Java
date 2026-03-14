@@ -5,12 +5,14 @@ import com.carblog.principalblog.domain.valueobject.Id;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface CategoryRepository {
 
     Category save(Category category);
-    Optional<Category> findById (Id id);
+    Optional<Category> findById (UUID id);
     List<Category> findAll();
-    void delete(Id id);
+    Optional<Category> findByName(String name);
+    void delete(UUID id);
 
 }
