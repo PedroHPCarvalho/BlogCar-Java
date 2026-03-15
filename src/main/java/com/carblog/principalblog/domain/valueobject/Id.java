@@ -13,6 +13,10 @@ public record Id(UUID value) {
         return new Id(UUID.randomUUID());
     }
 
+    public static Id restoreId(UUID value){
+        return new Id(value);
+    }
+
     public static Id fromString(String string){
         try {
             return new Id(UUID.fromString(string));

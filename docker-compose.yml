@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:17
+    container_name: carblog_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dokidoki01
+      POSTGRES_DB: dev_carblog
+    ports:
+      - "5432:5432"
+    volumes:
+      - dev_carblog:/var/lib/postgresql/data
+
+volumes:
+  dev_carblog:

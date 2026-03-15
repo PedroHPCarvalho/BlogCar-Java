@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url:
+    username:
+    password:
+    driver-class-name:
+
+  jpa:
+    hibernate:
+      ddl-auto:
+    show-sql:
+    format-sql:
+
+  flayway:
+    enabled:
+    locations:

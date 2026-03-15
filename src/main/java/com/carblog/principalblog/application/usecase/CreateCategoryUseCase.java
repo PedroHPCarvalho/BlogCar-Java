@@ -12,7 +12,7 @@ import java.util.Optional;
 public class CreateCategoryUseCase {
     private final CategoryRepository categoryRepository;
 
-     CreateCategoryUseCase (CategoryRepository categoryRepository) {
+     public CreateCategoryUseCase (CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
