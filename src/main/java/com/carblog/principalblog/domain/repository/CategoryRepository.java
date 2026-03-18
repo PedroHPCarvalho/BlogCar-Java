@@ -8,9 +8,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CategoryRepository {
-
     Category save(Category category);
-    Optional<Category> findById (UUID id);
+    Optional<Category> findById(UUID id);
     List<Category> findAll();
     Optional<Category> findByName(String name);
     void delete(UUID id);

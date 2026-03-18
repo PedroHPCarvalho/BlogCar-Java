@@ -1,7 +1,6 @@
 package com.carblog.principalblog.infrastructure.persistence.mapper;
 
 import com.carblog.principalblog.domain.entity.Category;
-import com.carblog.principalblog.domain.entity.Post;
 import com.carblog.principalblog.infrastructure.persistence.entity.CategoryJpa;
 
 public class CategoryMapper {

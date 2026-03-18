@@ -3,6 +3,7 @@ package com.carblog.principalblog.domain.entity;
 import com.carblog.principalblog.domain.valueobject.Id;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Post {
     //Atributos
@@ -46,7 +47,15 @@ public class Post {
         this.updatedDatePost = LocalDateTime.now();
     }
 
-
+    public static Post  restore(UUID id,Category category,String titlePost,String subTitlePost,String bodyPost, LocalDateTime createdDatePost, LocalDateTime updatedDatePost ){
+        Objects.requireNonNull(id, "Id is Not Null");
+        Objects.requireNonNull(category, "idCategory is Not Null");
+        Post post = new Post(category,titlePost,subTitlePost,bodyPost);
+        post.postId = Id.restoreId(id);
+        post.setCreatedDatePost(createdDatePost);
+        post.setUpdatedDatePost(updatedDatePost);
+        return post;
+    }
 
     // getter
     public Id getPostId() {
@@ -69,5 +78,24 @@ public class Post {
     }
     public LocalDateTime getUpdatedDatePost() {
         return updatedDatePost;
+    }
+
+    public void setCategoryOfPost(Category categoryOfPost) {
+        this.categoryOfPost = categoryOfPost;
+    }
+    public void setTitlePost(String titlePost) {
+        this.titlePost = titlePost;
+    }
+    public void setSubTitlePost(String subTitlePost) {
+        this.subTitlePost = subTitlePost;
+    }
+    public void setBodyPost(String bodyPost) {
+        this.bodyPost = bodyPost;
+    }
+    public void setCreatedDatePost(LocalDateTime createdDatePost) {
+        this.createdDatePost = createdDatePost;
+    }
+    public void setUpdatedDatePost(LocalDateTime updatedDatePost) {
+        this.updatedDatePost = updatedDatePost;
     }
 }
