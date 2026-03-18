@@ -1,7 +1,6 @@
 package com.carblog.principalblog.application.usecase;
 
 import com.carblog.principalblog.application.dto.PostOutputDto;
-import com.carblog.principalblog.domain.entity.Post;
 import com.carblog.principalblog.domain.repository.PostRepository;
 import org.springframework.stereotype.Service;
 

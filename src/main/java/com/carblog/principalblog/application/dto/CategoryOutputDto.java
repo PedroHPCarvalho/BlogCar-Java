@@ -1,7 +1,6 @@
 package com.carblog.principalblog.application.dto;
 
 import com.carblog.principalblog.domain.entity.Category;
-import com.carblog.principalblog.domain.valueobject.Id;
 
 import java.util.UUID;
 

@@ -1,6 +1,5 @@
 package com.carblog.principalblog.application.usecase;
 
-import com.carblog.principalblog.application.dto.PostInputDto;
 import com.carblog.principalblog.application.dto.PostOutputDto;
 import com.carblog.principalblog.application.dto.PostUpdateDto;
 import com.carblog.principalblog.domain.entity.Category;

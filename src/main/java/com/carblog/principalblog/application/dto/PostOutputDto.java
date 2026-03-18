@@ -1,6 +1,5 @@
 package com.carblog.principalblog.application.dto;
 
-import com.carblog.principalblog.domain.entity.Category;
 import com.carblog.principalblog.domain.entity.Post;
 
 import java.time.LocalDateTime;
