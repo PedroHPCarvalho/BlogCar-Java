@@ -5,6 +5,7 @@ import com.carblog.principalblog.domain.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class DeleteCategoryUseCase {
@@ -14,8 +15,8 @@ public class DeleteCategoryUseCase {
         this.categoryRepository = categoryRepository;
     }
 
-    public void execute(String name){
-        Optional<Category> categoryFinded = categoryRepository.findByName(name);
+    public void execute(UUID id){
+        Optional<Category> categoryFinded = categoryRepository.findById(id);
         if(categoryFinded.isEmpty()){
             throw new IllegalArgumentException();
         }

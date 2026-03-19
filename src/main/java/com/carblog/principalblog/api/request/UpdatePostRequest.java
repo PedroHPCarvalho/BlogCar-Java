@@ -1,5 +1,7 @@
 package com.carblog.principalblog.api.request;
 
+import com.carblog.principalblog.application.dto.PostUpdateDto;
+
 import java.util.Objects;
 
 public record UpdatePostRequest(
@@ -15,5 +17,9 @@ public record UpdatePostRequest(
         Objects.requireNonNull(titlePost, "title is not null");
         Objects.requireNonNull(subTitlePost, "subtitle is not null");
         Objects.requireNonNull(bodyPost, "bodyPost is not null");
+    }
+
+    public static PostUpdateDto toDto(UpdatePostRequest updatePostRequest){
+        return new PostUpdateDto(updatePostRequest.id,updatePostRequest.categoryId,updatePostRequest.titlePost,updatePostRequest.subTitlePost,updatePostRequest.bodyPost);
     }
 }
