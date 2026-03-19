@@ -9,7 +9,7 @@ public class PostMapper {
     public static PostJpa toJpa(Post post){
         return new PostJpa(
                 post.getPostId().value(),
-                post.getCategoryOfPost().getCategoryId().value(),
+                CategoryMapper.toJpa(post.getCategoryOfPost()),
                 post.getTitlePost(),
                 post.getSubTitlePost(),
                 post.getBodyPost(),
@@ -18,7 +18,8 @@ public class PostMapper {
                 );
     }
 
-    public static Post toEntity(PostJpa postJpa, Category category){
+    public static Post toEntity(PostJpa postJpa){
+        Category category = CategoryMapper.toEntity(postJpa.getCategoryJpa());
         return Post.restore(
                 postJpa.getId(),
                 category,

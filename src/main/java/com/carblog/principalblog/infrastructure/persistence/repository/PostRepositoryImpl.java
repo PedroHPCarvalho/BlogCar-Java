@@ -9,11 +9,13 @@ import com.carblog.principalblog.infrastructure.persistence.mapper.CategoryMappe
 import com.carblog.principalblog.infrastructure.persistence.mapper.PostMapper;
 import com.carblog.principalblog.infrastructure.persistence.springdata.CategoryJpaRepository;
 import com.carblog.principalblog.infrastructure.persistence.springdata.PostJpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
 public class PostRepositoryImpl implements PostRepository {
     private final PostJpaRepository postJpaRepository;
     private final CategoryJpaRepository categoryJpaRepository;
@@ -29,28 +31,17 @@ public class PostRepositoryImpl implements PostRepository {
     public Post save(Post post) {
         PostJpa postJpa = PostMapper.toJpa(post);
         PostJpa saved = postJpaRepository.save(postJpa);
-        return PostMapper.toEntity(saved, post.getCategoryOfPost());
+        return PostMapper.toEntity(saved);
     }
 
     @Override
     public Optional<Post> findById(UUID id) {
-        return postJpaRepository.findById(id).map(postJpa -> {
-            CategoryJpa categoryJpa = categoryJpaRepository
-                    .findById(postJpa.getIdCategory())
-                    .orElseThrow(() -> new RuntimeException("Category not found"));
-            Category category = CategoryMapper.toEntity(categoryJpa);
-            return PostMapper.toEntity(postJpa, category);
-        });
+        return postJpaRepository.findById(id).map(PostMapper::toEntity);
     }
 
     @Override
     public List<Post> findAll() {
-        return postJpaRepository.findAll().stream().map(postJpa -> {
-            CategoryJpa categoryJpa = categoryJpaRepository
-                    .findById(postJpa.getIdCategory())
-                    .orElseThrow(() -> new RuntimeException("Category not found"));
-            return PostMapper.toEntity(postJpa, CategoryMapper.toEntity(categoryJpa));
-        }).toList();
+        return postJpaRepository.findAll().stream().map(PostMapper::toEntity).toList();
     }
 
     @Override

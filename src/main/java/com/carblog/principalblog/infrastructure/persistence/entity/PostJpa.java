@@ -20,7 +20,7 @@ public class PostJpa {
     private UUID id;
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private UUID idCategory;
+    private CategoryJpa categoryJpa;
     private String titlePost;
     private String subTitlePost;
     private String bodyPost;
