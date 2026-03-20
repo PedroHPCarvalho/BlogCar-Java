@@ -33,19 +33,19 @@ public class CategoryController {
         this.deleteCategoryUseCase = deleteCategoryUseCase;
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<CategoryResponse> createCategory (@RequestBody CreateCategoryRequest createCategoryRequest){
         CategoryInputDto categoryInputDto = CreateCategoryRequest.toDto(createCategoryRequest);
         CategoryOutputDto categoryOutputDto = createCategoryUseCase.execute(categoryInputDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(CategoryResponse.fromDto(categoryOutputDto));
     }
 
-    @GetMapping("/find")
+    @GetMapping
     public ResponseEntity<List<CategoryResponse>> findById (){
         return ResponseEntity.status(HttpStatus.OK).body(findAllCategoriesUseCase.execute().stream().map(CategoryResponse::fromDto).toList());
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategoryById (@PathVariable("id") UUID id){
         deleteCategoryUseCase.execute(id);
         return ResponseEntity.noContent().build();

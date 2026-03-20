@@ -3,7 +3,6 @@ package com.carblog.principalblog.api.controller;
 import com.carblog.principalblog.api.request.CreatePostRequest;
 import com.carblog.principalblog.api.request.UpdatePostRequest;
 import com.carblog.principalblog.api.response.PostResponse;
-import com.carblog.principalblog.application.dto.PostInputDto;
 import com.carblog.principalblog.application.dto.PostOutputDto;
 import com.carblog.principalblog.application.usecase.*;
 import org.springframework.http.HttpStatus;
@@ -36,31 +35,32 @@ public class PostController {
         this.deletePostUseCase = deletePostUseCase;
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<PostResponse> createPost (@RequestBody CreatePostRequest createPostRequest){
         PostOutputDto postOutputDto = createPostUseCase.execute(CreatePostRequest.toDto(createPostRequest));
         return ResponseEntity.status(HttpStatus.CREATED).body(PostResponse.fromPostOutputDto(postOutputDto));
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PostResponse> findByIdPost (@PathVariable UUID id){
         PostOutputDto postOutputDto = findByIdPostUseCase.execute(id.toString());
         return ResponseEntity.status(HttpStatus.OK).body(PostResponse.fromPostOutputDto(postOutputDto));
     }
 
-    @GetMapping("/findAll")
+    @GetMapping
     public ResponseEntity<List<PostResponse>> findAllPost (){
         List<PostOutputDto> postOutputDtos = findAllPostUseCase.execute();
         return ResponseEntity.status(HttpStatus.OK).body(postOutputDtos.stream().map(PostResponse::fromPostOutputDto).toList());
     }
 
-    @PutMapping("/update/{id}")
+    //ERRO
+    @PutMapping("/{id}")
     public ResponseEntity<PostResponse> updatePost (@RequestBody UpdatePostRequest updatePostRequest, @PathVariable UUID id){
-        PostOutputDto postOutputDto = updatePostUseCase.execute(UpdatePostRequest.toDto(updatePostRequest));
+        PostOutputDto postOutputDto = updatePostUseCase.execute(UpdatePostRequest.toDto(updatePostRequest), id);
         return ResponseEntity.status(HttpStatus.OK).body(PostResponse.fromPostOutputDto(postOutputDto));
     }
 
-    @DeleteMapping("/delete/")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteByIdPost (@PathVariable UUID id){
         deletePostUseCase.execute(id);
         return ResponseEntity.noContent().build();

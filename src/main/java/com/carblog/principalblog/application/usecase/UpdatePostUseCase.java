@@ -10,6 +10,7 @@ import com.carblog.principalblog.domain.valueobject.Id;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UpdatePostUseCase {
@@ -21,16 +22,14 @@ public class UpdatePostUseCase {
         this.categoryRepository = categoryRepository;
      }
 
-     public PostOutputDto execute(PostUpdateDto postUpdateDto) {
+     public PostOutputDto execute(PostUpdateDto postUpdateDto, UUID id) {
          // Lógica para atualizar um post
-         Optional<Post> postSearch = postRepository.findById(Id.fromString(postUpdateDto.id()).value());
-         if (postSearch.isEmpty()) {
-             throw new IllegalArgumentException("Post não encontrado");
-         }
-         Post postToUpdate = postSearch.get();
-         Optional<Category> categorySearch = Optional.ofNullable(categoryRepository.findById(Id.fromString(postUpdateDto.categoryId()).value()).orElseThrow(() -> new IllegalArgumentException("Categoria não encontrada")));
-         postToUpdate.updatePost(categorySearch.get(), postUpdateDto.titlePost(), postUpdateDto.subTitlePost(), postUpdateDto.bodyPost());
-         postRepository.save(postToUpdate);
-         return PostOutputDto.from(postToUpdate);
+         Post postSearch = postRepository.findById(id)
+                 .orElseThrow(() -> new IllegalArgumentException("Post Not Founded"));
+         Category categorySearch = categoryRepository.findById(Id.fromString(postUpdateDto.categoryId()).value())
+                 .orElseThrow(() -> new IllegalArgumentException("Category Not Founded"));
+         postSearch.updatePost(categorySearch, postUpdateDto.titlePost(), postUpdateDto.subTitlePost(), postUpdateDto.bodyPost());
+         postRepository.save(postSearch);
+         return PostOutputDto.from(postSearch);
      }
 }
